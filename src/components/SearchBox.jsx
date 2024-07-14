@@ -9,7 +9,7 @@ function SearchBox() {
   };
 
   return (
-    <div className="mt-40">
+    <div>
       <input
         className="bg-zinc-700 w-72 p-2 rounded-lg focus:outline-none"
         type="text"
