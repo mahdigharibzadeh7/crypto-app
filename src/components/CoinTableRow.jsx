@@ -3,12 +3,12 @@ import { API_KEY } from "../constants/api-key";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
 
-function CoinTableRow({ coins, setCoins, page }) {
+function CoinTableRow({ coins, setCoins, page, currency }) {
   useEffect(() => {
     const fetchCoins = async () => {
       try {
         const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=20&page=${page}&x-cg-demo-api-key=${API_KEY}`
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&per_page=20&page=${page}&x-cg-demo-api-key=${API_KEY}`
         );
         const json = await response.json();
         setCoins(json);
@@ -18,7 +18,7 @@ function CoinTableRow({ coins, setCoins, page }) {
       }
     };
     fetchCoins();
-  }, [page]);
+  }, [page, currency]);
   return (
     <>
       {coins.length ? (
@@ -33,7 +33,10 @@ function CoinTableRow({ coins, setCoins, page }) {
               <span>{coin.symbol.toUpperCase()}</span>
             </td>
             <td>{coin.name}</td>
-            <td>${coin.current_price.toLocaleString()}</td>
+            <td>
+              {currency === "usd" ? "$" : currency === "eur" ? "€" : "¥"}
+              {coin.current_price.toLocaleString()}
+            </td>
             <td
               className={`${
                 parseFloat(coin.price_change_percentage_24h) > 0
@@ -43,7 +46,10 @@ function CoinTableRow({ coins, setCoins, page }) {
             >
               {coin.price_change_percentage_24h}
             </td>
-            <td>${coin.total_volume.toLocaleString()}</td>
+            <td>
+              {currency === "usd" ? "$" : currency === "eur" ? "€" : "¥"}
+              {coin.total_volume.toLocaleString()}
+            </td>
           </tr>
         ))
       ) : (
