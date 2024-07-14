@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
+import { API_KEY } from "../constants/api-key";
 
 function SearchResult({ search }) {
-  const API_KEY = "CG-4iqXxLnATz5uu3DL2JiA245v";
-
   const [result, setResult] = useState([]);
 
   useEffect(() => {
