@@ -1,6 +1,6 @@
 import CoinTableRow from "../components/CoinTableRow";
 
-function Table({ coins, setCoins, page }) {
+function Table({ coins, setCoins, page, currency }) {
   return (
     <table className="w-full mt-5 border-separate border-spacing-y-7">
       <tr className="text-left font-bold text-xl">
@@ -11,7 +11,12 @@ function Table({ coins, setCoins, page }) {
         <th>Total Volume</th>
         <th>chart</th>
       </tr>
-      <CoinTableRow coins={coins} setCoins={setCoins} page={page} />
+      <CoinTableRow
+        coins={coins}
+        setCoins={setCoins}
+        page={page}
+        currency={currency}
+      />
     </table>
   );
 }
