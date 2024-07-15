@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getCoinsList } from "../services/cryptoApi";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
