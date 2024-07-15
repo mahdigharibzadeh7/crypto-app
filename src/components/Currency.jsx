@@ -1,5 +1,3 @@
-import React from "react";
-
 function Currency({ currencyHandler }) {
   return (
     <div>
