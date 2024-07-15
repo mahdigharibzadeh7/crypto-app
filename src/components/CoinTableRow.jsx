@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { API_KEY } from "../constants/api-key";
+import { getCoinsList } from "../services/cryptoApi";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
 
@@ -7,9 +7,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
   useEffect(() => {
     const fetchCoins = async () => {
       try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&per_page=20&page=${page}&x-cg-demo-api-key=${API_KEY}`
-        );
+        const response = await fetch(getCoinsList(currency, page));
         const json = await response.json();
         setCoins(json);
         pageLenth = coins.length;

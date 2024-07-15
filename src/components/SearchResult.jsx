@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
-import { API_KEY } from "../constants/api-key";
+import { getSearchList } from "../services/cryptoApi";
 
 function SearchResult({ search }) {
   const [result, setResult] = useState([]);
@@ -11,10 +11,9 @@ function SearchResult({ search }) {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&x-cg-demo-api-key=${API_KEY}`,
-          { signal: controller.signal }
-        );
+        const response = await fetch(getSearchList("usd"), {
+          signal: controller.signal,
+        });
         const json = await response.json();
 
         const newRes = json.filter(
