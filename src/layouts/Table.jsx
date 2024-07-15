@@ -10,7 +10,7 @@ function Table({ coins, setCoins, page, currency }) {
           <th>Price</th>
           <th>24h</th>
           <th>Total Volume</th>
-          <th>chart</th>
+          <th></th>
         </tr>
       </thead>
       <CoinTableRow
