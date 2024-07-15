@@ -9,10 +9,8 @@ function MainContent() {
   const [page, setPage] = useState(1);
   const [currency, setCurrency] = useState("usd");
 
-  const pagesLength = coins.length;
-
-  const paginationHandler = (e) => {
-    setPage(e.target.textContent);
+  const paginationHandler = (number) => {
+    setPage(number);
   };
 
   const currencyHandler = (e) => {
@@ -32,7 +30,8 @@ function MainContent() {
         currency={currency}
       />
       <Pagination
-        pagesLength={pagesLength}
+        currentNumber={page}
+        setCurrentNumber={setPage}
         paginationHandler={paginationHandler}
       />
     </div>
