@@ -18,7 +18,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
     fetchCoins();
   }, [page, currency]);
   return (
-    <>
+    <tbody>
       {coins.length ? (
         coins.map((coin) => (
           <tr key={coin.id}>
@@ -42,7 +42,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
                   : "text-red-600"
               }`}
             >
-              {coin.price_change_percentage_24h}
+              {coin.price_change_percentage_24h.toFixed(2)}%
             </td>
             <td>
               {currency === "usd" ? "$" : currency === "eur" ? "€" : "¥"}
@@ -53,7 +53,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
       ) : (
         <Lottie animationData={loader} play loop />
       )}
-    </>
+    </tbody>
   );
 }
 
