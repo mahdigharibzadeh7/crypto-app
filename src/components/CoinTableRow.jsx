@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getCoinsList } from "../services/cryptoApi";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
+import chart_up from "../assets/chart-up.svg";
+import chart_down from "../assets/chart-down.svg";
 
 function CoinTableRow({ coins, setCoins, page, currency }) {
   useEffect(() => {
@@ -47,6 +49,16 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
             <td>
               {currency === "usd" ? "$" : currency === "eur" ? "€" : "¥"}
               {coin.total_volume.toLocaleString()}
+            </td>
+            <td>
+              <img
+                src={`${
+                  parseFloat(coin.price_change_percentage_24h) > 0
+                    ? chart_up
+                    : chart_down
+                }`}
+                alt={`${coin.name} chart`}
+              />
             </td>
           </tr>
         ))
