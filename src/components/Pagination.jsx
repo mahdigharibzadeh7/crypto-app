@@ -13,9 +13,8 @@ function Pagination({ currentNumber, setCurrentNumber, paginationHandler }) {
   return (
     <div className="w-full mx-5 flex justify-center gap-x-2">
       <button
-        className={`border px-3 py-1 rounded-lg bg-blue-500 ${
-          currentNumber === 1 &&
-          "bg-zinc-500 text-zinc-300 hover:cursor-not-allowed"
+        className={`border border-blue-500 w-24 py-1 rounded-lg bg-blue-500 ${
+          currentNumber === 1 && "opacity-30 hover:cursor-not-allowed"
         }`}
         onClick={prevHandler}
       >
@@ -56,9 +55,8 @@ function Pagination({ currentNumber, setCurrentNumber, paginationHandler }) {
         />
       ))}
       <button
-        className={`border px-3 py-1 rounded-lg bg-blue-500 ${
-          currentNumber === 20 &&
-          "bg-zinc-500 text-zinc-300 hover:cursor-not-allowed"
+        className={`border border-blue-500 w-24 py-1 rounded-lg bg-blue-500 ${
+          currentNumber === 20 && "opacity-30 hover:cursor-not-allowed"
         }`}
         onClick={nextHandler}
       >
