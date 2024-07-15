@@ -5,6 +5,7 @@ import { getSearchList } from "../services/cryptoApi";
 
 function SearchResult({ search }) {
   const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -22,6 +23,7 @@ function SearchResult({ search }) {
             data.symbol.toLowerCase().includes(search)
         );
         setResult(newRes);
+        setIsLoading(false);
       } catch (error) {
         console.log(error.name);
       }
@@ -34,7 +36,11 @@ function SearchResult({ search }) {
 
   return (
     <div className="w-72 max-h-80 overflow-auto scrollbar-hide border border-zinc-400 rounded-lg px-3 mt-3">
-      {result.length ? (
+      {isLoading ? (
+        <div className="flex justify-center">
+          <Lottie className="w-[50%]" animationData={loader} play loop />
+        </div>
+      ) : (
         result.map((rs) => (
           <div
             className="flex items-center gap-x-3 my-3 pb-2 border-b border-zinc-800"
@@ -44,8 +50,6 @@ function SearchResult({ search }) {
             <div key={rs.id}>{rs.name}</div>
           </div>
         ))
-      ) : (
-        <Lottie animationData={loader} play loop />
       )}
     </div>
   );
