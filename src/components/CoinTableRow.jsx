@@ -39,7 +39,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
             </td>
             <td
               className={`${
-                parseFloat(coin.price_change_percentage_24h) > 0
+                coin.price_change_percentage_24h > 0
                   ? "text-green-600"
                   : "text-red-600"
               }`}
@@ -53,9 +53,7 @@ function CoinTableRow({ coins, setCoins, page, currency }) {
             <td>
               <img
                 src={`${
-                  parseFloat(coin.price_change_percentage_24h) > 0
-                    ? chart_up
-                    : chart_down
+                  coin.price_change_percentage_24h > 0 ? chart_up : chart_down
                 }`}
                 alt={`${coin.name} chart`}
               />
