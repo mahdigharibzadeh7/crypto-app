@@ -1,18 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getCoinsList } from "../services/cryptoApi";
-// import Lottie from "react-lottie-player";
-// import loader from "../assets/loader.json";
+import Lottie from "react-lottie-player";
+import loader from "../assets/loader.json";
 import chart_up from "../assets/chart-up.svg";
 import chart_down from "../assets/chart-down.svg";
 
 function Table({ coins, setCoins, page, currency }) {
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchCoins = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(getCoinsList(currency, page));
         const json = await response.json();
         setCoins(json);
-        pageLenth = coins.length;
+        setIsLoading(false);
       } catch (err) {
         console.log(err.name);
       }
@@ -20,23 +22,31 @@ function Table({ coins, setCoins, page, currency }) {
     fetchCoins();
   }, [page, currency]);
   return (
-    <table className="w-full mt-5 border-separate border-spacing-y-7">
-      <thead>
-        <tr className="text-left font-bold text-xl">
-          <th>Coin</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>24h</th>
-          <th>Total Volume</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {coins.map((coin) => (
-          <TableRow key={coin.id} coin={coin} currency={currency} />
-        ))}
-      </tbody>
-    </table>
+    <>
+      {isLoading ? (
+        <div className="flex justify-center">
+          <Lottie className="w-[50%]" animationData={loader} play loop />
+        </div>
+      ) : (
+        <table className="w-full mt-5 border-separate border-spacing-y-7">
+          <thead>
+            <tr className="text-left font-bold text-xl">
+              <th>Coin</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>24h</th>
+              <th>Total Volume</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {coins.map((coin) => (
+              <TableRow key={coin.id} coin={coin} currency={currency} />
+            ))}
+          </tbody>
+        </table>
+      )}
+    </>
   );
 }
 
