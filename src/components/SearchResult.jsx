@@ -8,16 +8,17 @@ function SearchResult({ search }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    if (!search) return;
+
     const controller = new AbortController();
 
     const fetchData = async () => {
       try {
-        const response = await fetch(getSearchList("usd"), {
+        const response = await fetch(getSearchList(search), {
           signal: controller.signal,
         });
         const json = await response.json();
-
-        const newRes = json.filter(
+        const newRes = json.coins.filter(
           (data) =>
             data.name.toLowerCase().includes(search) ||
             data.symbol.toLowerCase().includes(search)
@@ -35,7 +36,7 @@ function SearchResult({ search }) {
   }, [search]);
 
   return (
-    <div className="w-72 max-h-80 overflow-auto scrollbar-hide border border-zinc-400 rounded-lg px-3 mt-3">
+    <div className="w-72 max-h-80 overflow-auto absolute bg-zinc-950 scrollbar-hide border border-zinc-400 rounded-lg px-3 mt-3">
       {isLoading ? (
         <div className="flex justify-center">
           <Lottie className="w-[50%]" animationData={loader} play loop />
@@ -46,8 +47,8 @@ function SearchResult({ search }) {
             className="flex items-center gap-x-3 my-3 pb-2 border-b border-zinc-800"
             key={rs.id}
           >
-            <img className="w-7 rounded-full" src={rs.image} />
-            <div key={rs.id}>{rs.name}</div>
+            <img className="w-7 rounded-full" src={rs.thumb} />
+            <div>{rs.name}</div>
           </div>
         ))
       )}
