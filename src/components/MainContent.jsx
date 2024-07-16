@@ -4,7 +4,7 @@ import CoinsTable from "./CoinsTable";
 import Pagination from "./Pagination";
 import Currency from "./Currency";
 
-function MainContent({ setShowModal }) {
+function MainContent({ setShowModal, setChartData }) {
   const [coins, setCoins] = useState([]);
   const [page, setPage] = useState(1);
   const [currency, setCurrency] = useState("usd");
@@ -29,6 +29,7 @@ function MainContent({ setShowModal }) {
         page={page}
         currency={currency}
         setShowModal={setShowModal}
+        setChartData={setChartData}
       />
       <Pagination
         currentNumber={page}
