@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import { getCoinsList } from "../services/cryptoApi";
+import { getChartData, getCoinsList } from "../services/cryptoApi";
 import Lottie from "react-lottie-player";
 import loader from "../assets/loader.json";
 import chart_up from "../assets/chart-up.svg";
 import chart_down from "../assets/chart-down.svg";
 
-function CoinsTable({ coins, setCoins, page, currency, setShowModal }) {
+function CoinsTable({
+  coins,
+  setCoins,
+  page,
+  currency,
+  setShowModal,
+  setChartData,
+}) {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchCoins = async () => {
@@ -46,6 +53,7 @@ function CoinsTable({ coins, setCoins, page, currency, setShowModal }) {
                 coin={coin}
                 currency={currency}
                 setShowModal={setShowModal}
+                setChartData={setChartData}
               />
             ))}
           </tbody>
@@ -57,10 +65,18 @@ function CoinsTable({ coins, setCoins, page, currency, setShowModal }) {
 
 export default CoinsTable;
 
-const TableRow = ({ coin, currency, setShowModal }) => {
-  const modalHandler = () => {
-    setShowModal((modal) => !modal);
+const TableRow = ({ coin, currency, setShowModal, setChartData }) => {
+  const modalHandler = async () => {
+    try {
+      const response = await fetch(getChartData(coin.id));
+      const json = await response.json();
+      setChartData({ ...json, coin });
+      setShowModal((modal) => !modal);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <tr>
       <td
