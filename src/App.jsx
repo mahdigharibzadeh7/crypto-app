@@ -6,12 +6,22 @@ import Layout from "./layouts/Layout";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [chartData, setChartData] = useState([]);
+  const [chartType, setChartType] = useState("prices");
 
   return (
     <>
-      <Modal showModal={showModal} setShowModal={setShowModal} />
+      {showModal && (
+        <Modal
+          setShowModal={setShowModal}
+          chartData={chartData}
+          chartType={chartType}
+          setChartType={setChartType}
+        />
+      )}
+
       <Layout>
-        <MainContent setShowModal={setShowModal} />
+        <MainContent setShowModal={setShowModal} setChartData={setChartData} />
       </Layout>
     </>
   );
